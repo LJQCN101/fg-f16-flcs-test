@@ -8,7 +8,7 @@
     AD-A055-417 - Main source.
         Pitch error gain = 3.0
     AD-A189-675 - Some parts of this used (except for in the YF-16).
-        Pitch error gain = 0.7
+        Pitch error gain = 1.0 (Not present in AD-A189-675, scaled to 2.0 to be inline with AD-A055-417)
         Made by LJQC
     TP-1538 - Used for high-alpha departure guards, such as spin,
         nose-slide and deep stall protection.
@@ -1441,25 +1441,30 @@
 
     <channel execrate="1" name="Pitch Integrator loop and surfaces">
 
+        <switch name="fcs/fly-by-wire/pitch/main-error-gain">
+            <default value="3.0"/>
+            <test logic="AND" value="2.0">
+                fcs/fly-by-wire/ada189675 == 1
+            </test>
+        </switch>
+
         <pure_gain name="fcs/fly-by-wire/pitch/main-error">
             <input>fcs/fly-by-wire/pitch/error</input>
-            <gain> 3.0 </gain>
+            <gain> fcs/fly-by-wire/pitch/main-error-gain </gain>
         </pure_gain>
 
-        <!--<switch name="fcs/fly-by-wire/pitch/loop-schedule">
-            <description>
-            </description>
+        <switch name="fcs/fly-by-wire/pitch/loop-schedule">
             <default value="fcs/fly-by-wire/pitch/F3"/>
-            <test logic="AND" value="fcs/fly-by-wire/pitch/F3-loop-alt">
-                fcs/fly-by-wire/prototype == 0
+            <test logic="AND" value="fcs/fly-by-wire/pitch/N3">
+                fcs/fly-by-wire/ada189675 == 1
             </test>
-        </switch>-->
+        </switch>
 
         <pure_gain name="fcs/fly-by-wire/pitch/main-error-scheduled">
             <description>
             </description>
             <input>fcs/fly-by-wire/pitch/main-error</input>
-            <gain> fcs/fly-by-wire/pitch/F3 </gain>
+            <gain> fcs/fly-by-wire/pitch/loop-schedule </gain>
         </pure_gain>
 
         <summer name="fcs/fly-by-wire/pitch/integrator-feed-air">
