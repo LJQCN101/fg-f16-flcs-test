@@ -8,7 +8,7 @@
     AD-A055-417 - Main source.
         Pitch error gain = 3.0
     AD-A189-675 - Some parts of this used (except for in the YF-16).
-        Pitch error gain = 1.0 (Not present in AD-A189-675. Scaling of all feedback path restored)
+        Pitch error gain = 1.0 (Not present in AD-A189-675. Scaling of all feedback paths restored)
         Made by LJQC
     TP-1538 - Used for high-alpha departure guards, such as spin,
         nose-slide and deep stall protection.
